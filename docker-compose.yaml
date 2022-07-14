@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  mini_apps:
+    build: .
+    restart: always
+    ports:
+    - "8000:8000"
+
+
