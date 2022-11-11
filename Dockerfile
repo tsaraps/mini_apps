@@ -1,11 +1,12 @@
 FROM python:3.10
 
-RUN mkdir -p /usr/src/main
-WORKDIR /usr/src/main
+ENV TZ="Europe/Moscow"
 
-COPY . /usr/src/app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
 
-EXPOSE 8000
+WORKDIR /code
+COPY ./requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./app /code/app
 
-CMD ["python", "main.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
